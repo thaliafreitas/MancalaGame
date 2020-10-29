@@ -16,6 +16,16 @@ class PlayersViewController: UIViewController {
     
     @IBOutlet weak var button: UIButton!
     var players = [Player]()
+    var playerIndex: Int = 0
+
+    public init(playerIndex: Int) {
+        self.playerIndex = playerIndex
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     let provider: PlayerProvider = { (tableView, indexPath, player) in
         let cell = tableView.dequeueReusableCell(withIdentifier: "player-cell", for: indexPath) as? PlayerTableViewCell
@@ -32,6 +42,7 @@ class PlayersViewController: UIViewController {
     var joined = false
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         tableView.register(UINib(nibName: "PlayerTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "player-cell")
         tableView.dataSource = self.dataSource
@@ -50,6 +61,31 @@ class PlayersViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
+    
+
+    
+//    required init?(coder aDecoder: NSCoder) {
+//
+//    }
+
+ 
+       func makeMove(state: GameState) -> PlayerMove {
+           print("Board")
+
+           var intVal:Int
+           if let i = readLine(strippingNewline: true) {
+               intVal = Int(i)!
+           } else {
+               intVal = -1
+           }
+
+           if intVal < 0 || intVal > state.players[0].houses.count {
+               print("Wrong input")
+               return makeMove(state: state)
+           }
+
+           return intVal
+       }
     
     @IBAction func join(_ sender: Any) {
         

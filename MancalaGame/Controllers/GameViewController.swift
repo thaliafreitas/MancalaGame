@@ -10,6 +10,10 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
+protocol Controller {
+    func makeMove(state: GameState) -> PlayerMove
+}
+
 class GameViewController: UIViewController {
 
     let skView = SKView()
