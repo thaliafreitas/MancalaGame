@@ -18,7 +18,7 @@ class SCKManager: NSObject {
     public var socket: SocketIOClient
     
     override init() {
-        self.manager = SocketManager(socketURL: URL(string: "http://192.168.100.9:3000")!, config: [.log(true), .compress])
+        self.manager = SocketManager(socketURL: URL(string: "http://localHost:3000")!, config: [.log(true), .compress])
         self.socket = manager.defaultSocket
         super.init()
     }

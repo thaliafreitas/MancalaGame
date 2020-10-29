@@ -128,7 +128,6 @@ class GameScene: SKScene {
     
     func restart() {
         self.initialSetup()
-
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
