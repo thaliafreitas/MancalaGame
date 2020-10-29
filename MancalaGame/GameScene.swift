@@ -54,7 +54,7 @@ class GameScene: SKScene {
     }
     
     var player: Player!
-    
+    var seeds: Seed! = nil
     var canPlay: Bool!
     
     override func didMove(to view: SKView) {
@@ -147,14 +147,13 @@ class GameScene: SKScene {
         guard canPlay == true else {
             return
         }
+        
+        // logica do jogo
     }
     
     func apply(move: Move) {
-        
+        // fazer os movimentos
     }
 }
 
-func CGPointDistanceSquared(from: CGPoint, to: CGPoint) -> CGFloat {
-    return (from.x - to.x) * (from.x - to.x) + (from.y - to.y) * (from.y - to.y)
-}
 

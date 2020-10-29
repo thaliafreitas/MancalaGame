@@ -14,8 +14,8 @@
             filePath = "MancalaGame/Controllers/PlayersViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "join(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "MancalaGame/Controllers/PlayersViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "update(with:animated:)"
             landmarkType = "7">
          </BreakpointContent>
