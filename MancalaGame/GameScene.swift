@@ -30,8 +30,6 @@ class GameScene: SKScene {
     }()
     
     let winnerLabel = SKLabelNode()
-    
-//    var board = Board(contentsOf: Bundle.main.url(forResource: "board", withExtension: "json")!)!
 
     var red = 18 {
         didSet {
@@ -50,11 +48,7 @@ class GameScene: SKScene {
         }
     }
     
-    
-//    var selectedPiece: Piece! = nil
-//    
-//    var highlightedCells: [Cell] = []
-    
+
     var nickname: String? {
         return UserDefaults.standard.string(forKey: "nickname")
     }
@@ -82,7 +76,6 @@ class GameScene: SKScene {
             if players?.count == 2 {
                 self.restartLabel.alpha = 1
                 self.quitLabel.alpha = 1
-//                self.board.placePieces(at: self)
             } else {
                 self.initialSetup()
             }
@@ -133,14 +126,11 @@ class GameScene: SKScene {
         quitLabel.position = CGPoint(x: frame.minX/1.1, y: frame.maxY/1.5)
         addChild(quitLabel)
         
-//        self.board = Board(contentsOf: Bundle.main.url(forResource: "board", withExtension: "json")!)!
-//
-//        board.placeCells(at: self)
     }
     
     func restart() {
         self.initialSetup()
-//        board.placePieces(at: self)
+
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -160,44 +150,11 @@ class GameScene: SKScene {
         
         guard canPlay == true else { return }
         
-//        if selectedPiece != nil {
-//            if let destination = highlightedCells.first(where: { $0.node.contains(position)} ) {
-//                let origin = board.cell(at: selectedPiece.position)
-//                SCKManager.shared.send(movement: .init(nickname: nickname!, from: origin!, to: destination))
-//                selectedPiece = nil
-//                clearHighlightedCell()
-//            }
-//        } else {
-//            guard let piece = board.piece(at: position) else { return }
-//            guard piece.number == player.number else { return }
-//            self.selectedPiece = piece
-//            let selectedCell = board.cell(at: position)!
-//            selectedCell.neighbors.forEach { (cell) in
-//                if !cell.hasPiece && cell.color == selectedCell.color {
-//                    cell.isHightlighted = true
-//                    self.highlightedCells.append(cell)
-//                } else {
-//                    cell.isHightlighted = false
-//                }
-//            }
-//
-//        }
+
 
     }
     
     func apply(move: Move) {
-        
-//        let origin = board.cells.first(where: { $0.row == move.from.row && $0.column ==  move.from.column })!
-//        let destination = board.cells.first(where: { $0.row == move.to.row && $0.column ==  move.to.column })!
-//
-//        let piece = board.piece(at: origin.node.position)!
-        
-//        piece.position = destination.node.centroid
-//
-//        origin.hasPiece = false
-//        destination.hasPiece = true
-        
-//        checkPieces()
         
     }
     
