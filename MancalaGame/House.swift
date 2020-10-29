@@ -11,7 +11,7 @@ import Foundation
 class House {
     var seeds: Int
 
-    public init(seeds: Int) {
+    init(seeds: Int) {
         self.seeds = seeds
     }
 
