@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 func game(houses: Int, seeds: Int, players: Int) {
     var gameShouldContinue = true
 
