@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="59" id="miQ-I6-FhJ" customClass="PlayerTableViewCell" customModule="MancalaGame" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="348" height="59"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="miQ-I6-FhJ" id="RQV-Tp-flR">
+                <rect key="frame" x="0.0" y="0.0" width="348" height="59"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ISz-OE-kKu">
+                        <rect key="frame" x="10" y="5" width="328" height="49"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usY-di-QYO">
+                                <rect key="frame" x="10" y="14" width="77" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FQU-tp-KgF">
+                                <rect key="frame" x="298" y="14.5" width="20" height="20"/>
+                                <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Nju-zO-V9u"/>
+                                    <constraint firstAttribute="width" constant="20" id="ORj-EW-yV2"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="FQU-tp-KgF" firstAttribute="centerY" secondItem="ISz-OE-kKu" secondAttribute="centerY" id="0Rt-yA-x55"/>
+                            <constraint firstItem="usY-di-QYO" firstAttribute="centerY" secondItem="ISz-OE-kKu" secondAttribute="centerY" id="9Df-Y0-KHM"/>
+                            <constraint firstItem="usY-di-QYO" firstAttribute="leading" secondItem="ISz-OE-kKu" secondAttribute="leading" constant="10" id="Fji-g6-T6j"/>
+                            <constraint firstAttribute="trailing" secondItem="FQU-tp-KgF" secondAttribute="trailing" constant="10" id="mJt-6T-rgm"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ISz-OE-kKu" firstAttribute="leading" secondItem="RQV-Tp-flR" secondAttribute="leading" constant="10" id="9HO-e0-GJz"/>
+                    <constraint firstAttribute="bottom" secondItem="ISz-OE-kKu" secondAttribute="bottom" constant="5" id="cek-G0-jWj"/>
+                    <constraint firstAttribute="trailing" secondItem="ISz-OE-kKu" secondAttribute="trailing" constant="10" id="hgl-LR-a6C"/>
+                    <constraint firstItem="ISz-OE-kKu" firstAttribute="top" secondItem="RQV-Tp-flR" secondAttribute="top" constant="5" id="krY-fJ-dA0"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="31F-C9-FMy"/>
+            <connections>
+                <outlet property="nicknameLabel" destination="usY-di-QYO" id="xJH-fp-i24"/>
+                <outlet property="statusView" destination="FQU-tp-KgF" id="N7u-65-KvD"/>
+            </connections>
+            <point key="canvasLocation" x="155.07246376811597" y="112.16517857142857"/>
+        </tableViewCell>
+    </objects>
+</document>

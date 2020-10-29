@@ -11,100 +11,200 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    var entities = [GKEntity]()
-    var graphs = [String : GKGraph]()
+    let restartLabel: SKLabelNode = {
+        let node = SKLabelNode(fontNamed: "AvenirNext-Bold")
+        node.text = "RESTART"
+        node.fontSize = 50
+        node.alpha = 0
+        node.horizontalAlignmentMode = .left
+        return node
+    }()
     
-    private var lastUpdateTime : TimeInterval = 0
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    let quitLabel: SKLabelNode = {
+        let node = SKLabelNode(fontNamed: "AvenirNext-Bold")
+        node.text = "QUIT"
+        node.fontSize = 50
+        node.alpha = 0
+        node.horizontalAlignmentMode = .left
+        return node
+    }()
     
-    override func sceneDidLoad() {
+    let winnerLabel = SKLabelNode()
+    
+//    var board = Board(contentsOf: Bundle.main.url(forResource: "board", withExtension: "json")!)!
 
-        self.lastUpdateTime = 0
-        
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
-        
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
+    var red = 18 {
+        didSet {
+            if red == 0 {
+                SCKManager.shared.socket.emit("end", 0)
+            }
         }
     }
     
     
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
+    var blue = 18 {
+        didSet {
+            if blue == 0 {
+                SCKManager.shared.socket.emit("end", 1)
+            }
         }
     }
     
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
+    
+//    var selectedPiece: Piece! = nil
+//    
+//    var highlightedCells: [Cell] = []
+    
+    var nickname: String? {
+        return UserDefaults.standard.string(forKey: "nickname")
     }
     
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
+    var player: Player!
+    
+    var canPlay: Bool!
+    
+    override func didMove(to view: SKView) {
+        self.backgroundColor = .clear
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        initialSetup()
+        
+        SCKManager.shared.socket.on("userConnectUpdate") { (data, _) in
+            let player = Player(data: data[0] as! [String : AnyObject])
+            if player.nickname == self.nickname {
+                self.player = player
+                self.canPlay = player.number == 0
+            }
         }
+        
+        SCKManager.shared.socket.on("players") { (data, _) in
+            let players = (data[0] as? [[String: AnyObject]])?.map(Player.init)
+            if players?.count == 2 {
+                self.restartLabel.alpha = 1
+                self.quitLabel.alpha = 1
+//                self.board.placePieces(at: self)
+            } else {
+                self.initialSetup()
+            }
+        }
+        
+        
+        SCKManager.shared.socket.on("winner") { (data, _) in
+            let winner = data[0] as! Int
+            if self.player.number == winner {
+                self.winnerLabel.text = "YOU WON THE GAME!"
+            } else {
+                self.winnerLabel.text = "YOU LOST THE GAME!"
+            }
+        }
+        
+        SCKManager.shared.getGameMovement { (move) in
+            if let move = move {
+                self.canPlay.toggle()
+                
+                self.apply(move: move)
+            }
+        }
+        
+        SCKManager.shared.socket.on("restart") { (_, _) in
+            self.restart()
+        }
+        
+        SCKManager.shared.socket.on("userExitUpdate") { (data, _) in
+            if let quitter = data[0] as? String, quitter != self.nickname {
+                self.canPlay = true
+                self.player.number = 0
+            } else {
+                self.canPlay = true
+                self.player.number = 1
+            }
+        }
+        
+    }
+    
+    func initialSetup() {
+        self.removeAllChildren()
+        winnerLabel.position = CGPoint(x: frame.midX, y: frame.maxY/1.25)
+        addChild(winnerLabel)
+
+        restartLabel.position = CGPoint(x: frame.minX/1.1, y: frame.maxY/1.25)
+        addChild(restartLabel)
+
+        quitLabel.position = CGPoint(x: frame.minX/1.1, y: frame.maxY/1.5)
+        addChild(quitLabel)
+        
+//        self.board = Board(contentsOf: Bundle.main.url(forResource: "board", withExtension: "json")!)!
+//
+//        board.placeCells(at: self)
+    }
+    
+    func restart() {
+        self.initialSetup()
+//        board.placePieces(at: self)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+        
+        guard let position = touches.first?.location(in: self) else { return }
+        
+        if self.nodes(at: position).first == restartLabel {
+            SCKManager.shared.socket.emit("restart", true)
+            return
         }
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
-        
-        // Initialize _lastUpdateTime if it has not already been
-        if (self.lastUpdateTime == 0) {
-            self.lastUpdateTime = currentTime
+        if self.nodes(at: position).first == quitLabel {
+            SCKManager.shared.socket.emit("exit", self.player.nickname)
+            self.initialSetup()
+            return
         }
         
-        // Calculate time since last update
-        let dt = currentTime - self.lastUpdateTime
+        guard canPlay == true else { return }
         
-        // Update entities
-        for entity in self.entities {
-            entity.update(deltaTime: dt)
-        }
-        
-        self.lastUpdateTime = currentTime
+//        if selectedPiece != nil {
+//            if let destination = highlightedCells.first(where: { $0.node.contains(position)} ) {
+//                let origin = board.cell(at: selectedPiece.position)
+//                SCKManager.shared.send(movement: .init(nickname: nickname!, from: origin!, to: destination))
+//                selectedPiece = nil
+//                clearHighlightedCell()
+//            }
+//        } else {
+//            guard let piece = board.piece(at: position) else { return }
+//            guard piece.number == player.number else { return }
+//            self.selectedPiece = piece
+//            let selectedCell = board.cell(at: position)!
+//            selectedCell.neighbors.forEach { (cell) in
+//                if !cell.hasPiece && cell.color == selectedCell.color {
+//                    cell.isHightlighted = true
+//                    self.highlightedCells.append(cell)
+//                } else {
+//                    cell.isHightlighted = false
+//                }
+//            }
+//
+//        }
+
     }
+    
+    func apply(move: Move) {
+        
+//        let origin = board.cells.first(where: { $0.row == move.from.row && $0.column ==  move.from.column })!
+//        let destination = board.cells.first(where: { $0.row == move.to.row && $0.column ==  move.to.column })!
+//
+//        let piece = board.piece(at: origin.node.position)!
+        
+//        piece.position = destination.node.centroid
+//
+//        origin.hasPiece = false
+//        destination.hasPiece = true
+        
+//        checkPieces()
+        
+    }
+    
+
 }
+
+func CGPointDistanceSquared(from: CGPoint, to: CGPoint) -> CGFloat {
+    return (from.x - to.x) * (from.x - to.x) + (from.y - to.y) * (from.y - to.y)
+}
+
