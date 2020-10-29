@@ -10,8 +10,6 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-
-
 class GameViewController: UIViewController {
 
     let skView = SKView()

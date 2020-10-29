@@ -27,6 +27,7 @@
 		F66AB8EA254B1761005D0DCD /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66AB8E9254B1761005D0DCD /* Board.swift */; };
 		F66AB8EC254B1783005D0DCD /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66AB8EB254B1783005D0DCD /* Cell.swift */; };
 		F66AB8EE254B17E9005D0DCD /* Seed.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66AB8ED254B17E9005D0DCD /* Seed.swift */; };
+		F66AB8F0254B1DE5005D0DCD /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66AB8EF254B1DE5005D0DCD /* House.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		F66AB8E9254B1761005D0DCD /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		F66AB8EB254B1783005D0DCD /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		F66AB8ED254B17E9005D0DCD /* Seed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seed.swift; sourceTree = "<group>"; };
+		F66AB8EF254B1DE5005D0DCD /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,15 +91,16 @@
 				F66AB8BC25494B50005D0DCD /* Controllers */,
 				F64B7651254938A200A9CA66 /* Socket */,
 				F64B766B2549442D00A9CA66 /* Message */,
-				F64B7641254937F300A9CA66 /* Main.storyboard */,
+				F66AB8ED254B17E9005D0DCD /* Seed.swift */,
+				F66AB8EF254B1DE5005D0DCD /* House.swift */,
+				F66AB8EB254B1783005D0DCD /* Cell.swift */,
 				F66AB8C3254A8173005D0DCD /* PlayerTableViewCell.swift */,
 				F66AB8C4254A8173005D0DCD /* PlayerTableViewCell.xib */,
+				F64B7641254937F300A9CA66 /* Main.storyboard */,
 				F64B7644254937F900A9CA66 /* Assets.xcassets */,
 				F64B7646254937F900A9CA66 /* LaunchScreen.storyboard */,
 				F64B7649254937F900A9CA66 /* Info.plist */,
 				F66AB8E9254B1761005D0DCD /* Board.swift */,
-				F66AB8EB254B1783005D0DCD /* Cell.swift */,
-				F66AB8ED254B17E9005D0DCD /* Seed.swift */,
 			);
 			path = MancalaGame;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				F64B76592549392A00A9CA66 /* Move.swift in Sources */,
 				F64B7655254938DC00A9CA66 /* Player.swift in Sources */,
 				F64B7638254937F300A9CA66 /* AppDelegate.swift in Sources */,
+				F66AB8F0254B1DE5005D0DCD /* House.swift in Sources */,
 				F64B7657254938EE00A9CA66 /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

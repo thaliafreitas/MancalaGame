@@ -62,12 +62,6 @@ class PlayersViewController: UIViewController {
         super.viewDidAppear(animated)
     }
     
-
-    
-//    required init?(coder aDecoder: NSCoder) {
-//
-//    }
-
     
     @IBAction func join(_ sender: Any) {
         
