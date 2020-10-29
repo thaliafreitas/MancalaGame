@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct GameState: CustomStringConvertible{
+struct GameState: CustomStringConvertible {
     var players: [PlayerState]
 
     init(houses: Int, seeds: Int, players: Int) {

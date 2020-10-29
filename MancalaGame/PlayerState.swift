@@ -8,8 +8,6 @@
 
 struct PlayerState {
     
-   
-    
     var houses: [House]
     var home: House
     var active: Bool = true

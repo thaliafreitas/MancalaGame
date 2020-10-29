@@ -31,6 +31,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SCKManager.shared.exit(with: nickname, completionHandler: nil)
         }
     }
-
 }
 

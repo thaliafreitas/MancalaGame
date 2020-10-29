@@ -112,7 +112,6 @@ class GameScene: SKScene {
                 self.player.number = 1
             }
         }
-        
     }
     
     func initialSetup() {
@@ -125,7 +124,6 @@ class GameScene: SKScene {
 
         quitLabel.position = CGPoint(x: frame.minX/1.1, y: frame.maxY/1.5)
         addChild(quitLabel)
-        
     }
     
     func restart() {
@@ -147,18 +145,14 @@ class GameScene: SKScene {
             self.initialSetup()
             return
         }
-        
-        guard canPlay == true else { return }
-        
-
-
+        guard canPlay == true else {
+            return
+        }
     }
     
     func apply(move: Move) {
         
     }
-    
-
 }
 
 func CGPointDistanceSquared(from: CGPoint, to: CGPoint) -> CGFloat {

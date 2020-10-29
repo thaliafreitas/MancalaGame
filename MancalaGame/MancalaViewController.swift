@@ -20,7 +20,6 @@ class MancalaGameMode: GameMode {
     }
 
     func processPlayerMove(player: Int, move: PlayerMove) -> GameState {
-        
         return state
     }
 
